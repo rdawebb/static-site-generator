@@ -1,6 +1,7 @@
 # importing the necessary modules
 from textnode import TextNode, TextType
 from htmlnode import HTMLNode, LeafNode, ParentNode
+from split_nodes import split_nodes_delimiter
 
 # main function
 def main():
@@ -17,6 +18,11 @@ def main():
     child_leaf = LeafNode("span", "Child text", {"class": "child"})
     parent_node = ParentNode("div", [child_leaf], {"class": "parent"})
 
+    # create a dummy list of text nodes to split
+    old_nodes = [TextNode("This is **bold** text", TextType.PLAIN)]
+    # split the nodes by the bold delimiter
+    new_nodes = split_nodes_delimiter(old_nodes, "**", TextType.BOLD)
+
     # print the test nodes
     print(node)
     print(html_node)
@@ -24,6 +30,7 @@ def main():
     print(leaf_node.to_html())
     print(parent_node)
     print(parent_node.to_html())
+    print(new_nodes)
 
 # run main function if this script is executed
 if __name__ == "__main__":
