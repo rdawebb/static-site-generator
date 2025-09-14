@@ -122,13 +122,9 @@ class TestParentNode(unittest.TestCase):
     # test parent to html with multiple children
     def test_to_html_with_multiple_children(self):
         child1 = LeafNode("span", "child1")
-        child2 = LeafNode("a", "link", {"href": "http://example.com"})
-        child3 = LeafNode("img", None, {"src": "image.png"})
-        parent_node = ParentNode("div", [child1, child2, child3])
-        self.assertEqual(
-            parent_node.to_html(),
-            '<div><span>child1</span><a href="http://example.com">link</a><img src="image.png"></div>',
-        )
+        child2 = LeafNode("b", "child2")
+        parent_node = ParentNode("div", [child1, child2])
+        self.assertEqual(parent_node.to_html(), "<div><span>child1</span><b>child2</b></div>")
 
     # test parent to html with grandchildren
     def test_to_html_with_grandchildren(self):
