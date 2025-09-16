@@ -1,4 +1,4 @@
-# importing the necessary modules
+# import necessary modules
 from textnode import TextNode, TextType
 
 # main function

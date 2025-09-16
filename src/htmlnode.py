@@ -7,26 +7,27 @@ class HTMLNode:
         self.children = children
         self.props = props
 
-    # convert to html string
+    # function to convert to html string
     def to_html(self):
         raise NotImplementedError
-    
-    # convert properties to html string
+
+    # function to convert properties to html string
     def props_to_html(self):
         if self.props is None:
             return ""
         return "".join(f' {key}="{value}"' for key, value in self.props.items())
-    
-    # represent the html node as a string
+
+    # function to represent the html node as a string
     def __repr__(self):
         return f"HTMLNode({self.tag}, {self.value}, children: {self.children}, {self.props})"  
 
+# leaf node class for nodes with no children
 class LeafNode(HTMLNode):
     # constructor
     def __init__(self, tag, value, props=None):
         super().__init__(tag, value, None, props)
 
-    # convert to html string
+    # function to convert to html string
     def to_html(self):
         # check for value
         if self.value is None:
@@ -37,16 +38,17 @@ class LeafNode(HTMLNode):
         # return html string
         return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
 
-    # represent the leaf node as a string
+    # function to represent the leaf node as a string
     def __repr__(self):
         return f"LeafNode({self.tag}, {self.value}, {self.props})"
 
+# parent node class for nodes with children
 class ParentNode(HTMLNode):
     # constructor
     def __init__(self, tag, children, props=None):
         super().__init__(tag, None, children, props)
 
-    # convert to html string
+    # function to convert to html string
     def to_html(self):
         # check for tag
         if self.tag is None:
@@ -58,7 +60,7 @@ class ParentNode(HTMLNode):
         children_html = "".join(child.to_html() for child in self.children)
         # return html string with children nested inside parent tag
         return f"<{self.tag}{self.props_to_html()}>{children_html}</{self.tag}>"
-    
-    # represent the parent node as a string
+
+    # function to represent the parent node as a string
     def __repr__(self):
         return f"ParentNode({self.tag}, children: {self.children}, {self.props})"

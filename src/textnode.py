@@ -1,4 +1,4 @@
-# imports
+# import necessary modules
 from enum import Enum
 from htmlnode import LeafNode
 
@@ -18,18 +18,18 @@ class TextNode:
         self.text_type = text_type
         self.url = url
 
-    # check if two text nodes are equal
+    # function to check if two text nodes are equal
     def __eq__(self, other):
         # compare text, type, and url
         return (self.text == other.text and
                 self.text_type == other.text_type and
                 self.url == other.url)
-    
-    # represent the text node as a string
+
+    # function to represent the text node as a string
     def __repr__(self):
         return f"TextNode({self.text}, {self.text_type}, {self.url})"
-    
-# convert text node to corresponding html node
+
+# function to convert text node to corresponding html node
 def text_node_to_html_node(text_node):
     if text_node.text_type == TextType.PLAIN:
         return LeafNode(None, text_node.text) # plain text has no tag

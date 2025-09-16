@@ -1,6 +1,6 @@
-# import the necessary modules and classes
-from textnode import TextNode, TextType
+# import necessary modules
 import re
+from textnode import TextNode, TextType
 
 # function to covert text into list of approptiate nodes
 def text_to_textnodes(text):
