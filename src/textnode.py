@@ -2,7 +2,7 @@
 from enum import Enum
 from htmlnode import LeafNode
 
-# enums
+# text types
 class TextType(Enum):
     PLAIN = "text"
     BOLD = "bold"
