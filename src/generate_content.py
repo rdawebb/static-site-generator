@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.ERROR, format='%(asctime)s - %(levelname)s - %
                     handlers=[logging.FileHandler("generate_content.log"), logging.StreamHandler()])
 
 # recursively generate HTML pages from markdown files in a directory using a template
-def generate_page_recursive(content_dir, template_path, dest_dir):
+def generate_page_recursive(content_dir, template_path, dest_dir, base_path):
     # check if content path exists and is a directory
     if not os.path.exists(content_dir) or not os.path.isdir(content_dir):
         logging.error(f"Content does not exist or is not a directory: {content_dir}")
@@ -49,7 +49,7 @@ def generate_page_recursive(content_dir, template_path, dest_dir):
                 continue
             
             # recurse into the directory    
-            generate_page_recursive(content_path, template_path, dest_path)
+            generate_page_recursive(content_path, template_path, dest_path, base_path)
         
         # if content is a file, generate a page from it
         else:
@@ -57,13 +57,13 @@ def generate_page_recursive(content_dir, template_path, dest_dir):
             
             # generate the HTML page
             try:
-                generate_page(content_path, template_path, dest_file_path)
+                generate_page(content_path, template_path, dest_file_path, base_path)
             # handle any errors during page generation
             except Exception as e:
                 logging.error(f"Error generating page for {content_path}: {e}")
 
 # generate a complete HTML page from a markdown file using a template
-def generate_page(markdown_path, template_path, dest_path):
+def generate_page(markdown_path, template_path, dest_path, base_path):
     # check if source markdown file exists
     if not os.path.exists(markdown_path) or not os.path.isfile(markdown_path):
         logging.error(f"Markdown file does not exist: {markdown_path}")
@@ -99,7 +99,10 @@ def generate_page(markdown_path, template_path, dest_path):
     content = html_node.to_html()
 
     # replace placeholders in template file with actual title and content
-    final_html = template.replace("{{ Title }}", title).replace("{{ Content }}", content)
+    html = template.replace("{{ Title }}", title).replace("{{ Content }}", content)
+
+    # adjust paths for href and src attributes
+    final_html = html.replace("href=\"/", f'href="{base_path}').replace("src=\"/", f'src="{base_path}')
 
     # write the final HTML to the destination file
     try:
