@@ -12,7 +12,7 @@ def clear_directory(directory):
     # check if directory exists
     if os.path.exists(directory) and os.path.isdir(directory):
         # log the clearing action
-        logging.info(f"Clearing directory: {directory}")
+        logging.info(f"Clearing directory: {directory} ...")
         
         # iterate over items in the directory and remove them
         for item in os.listdir(directory):
@@ -48,6 +48,9 @@ def copy_directory(source, destination):
     else:
         os.makedirs(destination, exist_ok=True)
     
+    # log the copying action
+    logging.info(f"Copying files from {source} to {destination} ...")
+
     # iterate over items in the source directory and copy them to the destination
     for item in os.listdir(source):
         source_path = os.path.join(source, item)

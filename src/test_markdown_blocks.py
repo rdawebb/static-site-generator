@@ -1,6 +1,7 @@
 # import the necessary modules
 import unittest
 from markdown_blocks import markdown_to_blocks, BlockType, block_to_block_type, markdown_to_html_node
+from generate_content import extract_title
 
 # define the test case class
 class TestMarkdownBlocks(unittest.TestCase):
@@ -200,6 +201,38 @@ This is an invalid code block
 """
         with self.assertRaises(ValueError):
             markdown_to_html_node(markdown)
+
+    # test extracting title from markdown
+    def test_extract_title(self):
+        markdown = """
+# My Document Title
+
+Some paragraph text here.
+````
+More text.
+````
+> A quote here.
+- A list item.
+"""
+        title = extract_title(markdown)
+        self.assertEqual(title, "My Document Title")
+
+
+    # test extracting title when no heading present
+    def test_extract_title_no_heading(self):
+        markdown = """
+This document has no title.
+
+Some paragraph text here.
+````
+More text.
+````
+> A quote here.
+- A list item.
+"""
+        with self.assertRaises(Exception):
+            extract_title(markdown)
+
 
 # run the tests if this script is executed
 if __name__ == "__main__":
