@@ -18,18 +18,18 @@ class TextNode:
         self.text_type = text_type
         self.url = url
 
-    # function to check if two text nodes are equal
+    # check if two text nodes are equal
     def __eq__(self, other):
         # compare text, type, and url
         return (self.text == other.text and
                 self.text_type == other.text_type and
                 self.url == other.url)
 
-    # function to represent the text node as a string
+    # represent the text node as a string
     def __repr__(self):
         return f"TextNode({self.text}, {self.text_type}, {self.url})"
 
-# function to convert text node to corresponding html node
+# convert text node to corresponding html node
 def text_node_to_html_node(text_node):
     if text_node.text_type == TextType.PLAIN:
         return LeafNode(None, text_node.text) # plain text has no tag

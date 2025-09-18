@@ -1,13 +1,14 @@
 # import necessary modules
-from textnode import TextNode, TextType
+from copy_directory import copy_directory
 
 # main function
 def main():
-    # create a text node with dummy data
-    node = TextNode("Hello, World!", TextType.LINK, "http://example.com")
+    # define source and destination directories
+    source_dir = "static"
+    dest_dir = "public"
 
-    # print the text node
-    print(node)
+    # copy contents from source directory to destination directory
+    copy_directory(source_dir, dest_dir)
 
 # run main function if this script is executed
 if __name__ == "__main__":
